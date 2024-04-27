@@ -27,6 +27,8 @@ public class Customer{
     //@OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     //private List<Order> orders;
 
+    //second commit
+
     //@OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     //private List<Reservation> reservations;
 
