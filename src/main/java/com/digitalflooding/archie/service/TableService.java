@@ -1,8 +1,6 @@
 package com.digitalflooding.archie.service;
 
-import com.digitalflooding.archie.entity.Customer;
-import com.digitalflooding.archie.entity.Table;
-import com.digitalflooding.archie.repository.CustomerRepository;
+import com.digitalflooding.archie.entity.RestaurantTable;
 import com.digitalflooding.archie.repository.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,23 +16,23 @@ public class TableService {
 
     //CRUD OPERATIONS
 
-    public Table addTable (Table table){
-        return repository.save(table);
+    public RestaurantTable addTable (RestaurantTable restaurantTable){
+        return repository.save(restaurantTable);
     }
 
-    public Table updateTable (Table table){
-        return repository.save(table);
+    public RestaurantTable updateTable (RestaurantTable restaurantTable){
+        return repository.save(restaurantTable);
     }
 
     public void deleteTable(Long id){
         repository.deleteById(id);
     }
 
-    public List<Table> getTables(){
+    public List<RestaurantTable> getTables(){
         return repository.findAll();
     }
 
-    public Optional<Table> getTable(Long id){
+    public Optional<RestaurantTable> getTable(Long id){
         return repository.findById(id);
     }
 }

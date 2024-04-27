@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

@@ -1,6 +1,6 @@
 package com.digitalflooding.archie.service;
 
-import com.digitalflooding.archie.entity.Order;
+import com.digitalflooding.archie.entity.Orders;
 import com.digitalflooding.archie.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,23 +16,23 @@ public class OrderService {
     
     //CRUD OPERATIONS
 
-    public Order addOrder (Order order){
-        return repository.save(order);
+    public Orders addOrder (Orders orders){
+        return repository.save(orders);
     }
 
-    public Order updateOrder (Order order){
-        return repository.save(order);
+    public Orders updateOrder (Orders orders){
+        return repository.save(orders);
     }
 
     public void deleteOrder(Long id){
         repository.deleteById(id);
     }
 
-    public List<Order> getOrders(){
+    public List<Orders> getOrders(){
         return repository.findAll();
     }
     
-    public Optional<Order> getOrder(Long id){
+    public Optional<Orders> getOrder(Long id){
         return repository.findById(id);
     }
 }

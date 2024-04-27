@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-public class Table {
+public class RestaurantTable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

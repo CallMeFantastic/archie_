@@ -15,7 +15,7 @@ public class Bill {
     private BigDecimal totalAmount;
 
     @OneToOne
-    private Order order;
+    private Orders orders;
 
     private PaymentStatus paymentStatus;
 

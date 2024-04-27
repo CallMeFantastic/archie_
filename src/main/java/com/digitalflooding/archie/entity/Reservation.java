@@ -20,7 +20,7 @@ public class Reservation {
     private Calendar arrivalDate;
 
     @ManyToOne
-    private Table table;
+    private RestaurantTable restaurantTable;
 
     private ReservationStatus status = ReservationStatus.CREATED;
 }
