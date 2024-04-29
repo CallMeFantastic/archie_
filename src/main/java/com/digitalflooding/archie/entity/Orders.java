@@ -20,7 +20,7 @@ public class Orders {
     private OrderStatus completedStatus = OrderStatus.CREATED;
 
     @ManyToOne
-    private Customer customer;
+    private Customer customerDto;
 
     @OneToMany
     private List<OrderItem> positions;

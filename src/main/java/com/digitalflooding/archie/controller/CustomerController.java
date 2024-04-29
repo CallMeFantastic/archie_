@@ -18,10 +18,10 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/Customer/addCustomer")
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customerDto) {
         try{
 
-            return new ResponseEntity<>(customer, HttpStatus.CREATED);
+            return new ResponseEntity<>(customerDto, HttpStatus.CREATED);
         }
         catch (Exception e) {
             return new ResponseEntity<>( null, HttpStatus.INTERNAL_SERVER_ERROR);

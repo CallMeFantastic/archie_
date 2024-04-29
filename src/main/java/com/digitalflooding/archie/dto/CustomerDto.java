@@ -1,43 +1,27 @@
-package com.digitalflooding.archie.entity;
+package com.digitalflooding.archie.dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import com.digitalflooding.archie.entity.Reservation;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@Entity
 @Data
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
+public class CustomerDto {
+
     private Long id;
-
-    @NotNull
     private String customerSurname;
-
-    @NotNull
     private String customerName;
-
-    @NotNull
     private String contactNumber;
-
     private String email;
-
     private String address;
-
-    @NotNull
     private Boolean isPremium;
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST) //da rivedere il cascade
     private Map<LocalDateTime, Reservation> reservations;
 
     //@OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     //private List<Order> orders;
 
-
-    public Customer(Builder builder) {
+    public CustomerDto(CustomerDto.Builder builder) {
         this.id = builder.id;
         this.customerSurname = builder.customerSurname;
         this.customerName = builder.customerName;
@@ -58,48 +42,48 @@ public class Customer {
         private Boolean isPremium;
         private Map<LocalDateTime, Reservation> reservations;
 
-        public Builder setId(Long id) {
+        public CustomerDto.Builder setId(Long id) {
             this.id = id;
             return this;
         }
 
-        public Builder setCustomerSurname(String customerSurname) {
+        public CustomerDto.Builder setCustomerSurname(String customerSurname) {
             this.customerSurname = customerSurname;
             return this;
         }
 
-        public Builder setCustomerName(String customerName) {
+        public CustomerDto.Builder setCustomerName(String customerName) {
             this.customerName = customerName;
             return this;
         }
 
-        public Builder setContactNumber(String contactNumber) {
+        public CustomerDto.Builder setContactNumber(String contactNumber) {
             this.contactNumber = contactNumber;
             return this;
         }
 
-        public Builder setEmail(String email) {
+        public CustomerDto.Builder setEmail(String email) {
             this.email = email;
             return this;
         }
 
-        public Builder setAddress(String address) {
+        public CustomerDto.Builder setAddress(String address) {
             this.address = address;
             return this;
         }
 
-        public Builder setPremium(Boolean premium) {
+        public CustomerDto.Builder setPremium(Boolean premium) {
             isPremium = premium;
             return this;
         }
 
-        public Builder setReservations(Map<LocalDateTime, Reservation> reservations) {
+        public CustomerDto.Builder setReservations(Map<LocalDateTime, Reservation> reservations) {
             this.reservations = reservations;
             return this;
         }
 
-        public Customer build(){
-            return new Customer(this);
+        public CustomerDto build(){
+            return new CustomerDto(this);
         }
 
     }

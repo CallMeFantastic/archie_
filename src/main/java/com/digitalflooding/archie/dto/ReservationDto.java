@@ -1,34 +1,21 @@
-package com.digitalflooding.archie.entity;
+package com.digitalflooding.archie.dto;
 
-import jakarta.persistence.*;
-import lombok.Data;
-
+import com.digitalflooding.archie.entity.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Data
-public class Reservation {
+public class ReservationDto {
 
-    @EmbeddedId
     private IdReservation idReservation;
-
-
-    @ManyToOne
-    @JoinColumn(name = "id_customer")
-    private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name = "id_table")
+    private Customer customerDto;
     private TableRestaurant tableRestaurant;
-
     private LocalDateTime timestamp;
     private ReservationStatus status = ReservationStatus.CREATED;
     private TimeSlot timeSlot;
 
 
-    public Reservation(Builder builder) {
+    public ReservationDto(Builder builder) {
         this.idReservation = builder.idReservation;
-        this.customer = builder.customer;
+        this.customerDto = builder.customerDto;
         this.tableRestaurant = builder.tableRestaurant;
         this.timestamp = builder.timestamp;
         this.status = builder.status;
@@ -37,7 +24,7 @@ public class Reservation {
 
     public static class Builder{
         private IdReservation idReservation;
-        private Customer customer;
+        private Customer customerDto;
         private TableRestaurant tableRestaurant;
         private LocalDateTime timestamp;
         private ReservationStatus status;
@@ -49,8 +36,8 @@ public class Reservation {
             return this;
         }
 
-        public Builder setCustomer(Customer customer) {
-            this.customer = customer;
+        public Builder setCustomer(Customer customerDto) {
+            this.customerDto = customerDto;
             return this;
         }
 
@@ -74,9 +61,8 @@ public class Reservation {
             return this;
         }
 
-        public Reservation build(){
-            return new Reservation(this);
+        public ReservationDto build(){
+            return new ReservationDto(this);
         }
     }
-
 }

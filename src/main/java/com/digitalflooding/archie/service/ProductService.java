@@ -1,8 +1,6 @@
 package com.digitalflooding.archie.service;
 
-import com.digitalflooding.archie.entity.Customer;
 import com.digitalflooding.archie.entity.Product;
-import com.digitalflooding.archie.repository.CustomerRepository;
 import com.digitalflooding.archie.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

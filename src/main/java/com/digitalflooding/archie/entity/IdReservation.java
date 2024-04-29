@@ -13,19 +13,19 @@ public class IdReservation {
     @Column(name="id_table", nullable=false)
     private Integer idTable;
     private LocalDate date;
-    private LocalTime hour;
+    private LocalTime time;
 
 
     private IdReservation(Builder builder) {
         this.idTable = builder.idTable;
         this.date = builder.date;
-        this.hour = builder.hour;
+        this.time = builder.time;
     }
 
     public static class Builder {
         private Integer idTable;
         private LocalDate date;
-        private LocalTime hour;
+        private LocalTime time;
 
         public Builder setIdTable(Integer idTable) {
             this.idTable = idTable;
@@ -37,8 +37,8 @@ public class IdReservation {
             return this;
         }
 
-        public Builder setHour(LocalTime hour){
-            this.hour = hour;
+        public Builder setTime(LocalTime time){
+            this.time = time;
             return this;
         }
 
