@@ -40,15 +40,11 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public Customer updateCustomer (Customer customerInput, Reservation reservation){
+    public Customer updateCustomer (Customer customerInput){
        // public Customer updateCustomer (Long id, String customerSurname, String customerName, String contactNumber, String email, String address, Boolean isPremium, Reservation reservation){
         Optional<Customer> customerOptional =  customerRepository.findById(customerInput.getId());
         if(customerOptional.isPresent()){
             Customer customer = customerOptional.get();
-            if(reservation!=null){
-                LocalDateTime key = LocalDateTime.of(reservation.getIdReservation().getDate(), reservation.getIdReservation().getTime());
-                customer.getReservations().put(key, reservation);
-            }
             if(!Objects.equals(customer.getCustomerName(), customerInput.getCustomerName())){
                 customer.setCustomerName(customerInput.getCustomerName());
             }

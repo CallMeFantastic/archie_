@@ -12,7 +12,6 @@ public class Reservation {
     @EmbeddedId
     private IdReservation idReservation;
 
-
     @ManyToOne
     @JoinColumn(name = "id_customer")
     private Customer customer;
