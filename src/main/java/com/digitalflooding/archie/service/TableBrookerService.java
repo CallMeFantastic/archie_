@@ -1,13 +1,17 @@
 package com.digitalflooding.archie.service;
 
-import com.digitalflooding.archie.dto.TableRestaurantDto;
+import com.digitalflooding.archie.entity.Reservation;
 import com.digitalflooding.archie.entity.TableRestaurant;
+import com.digitalflooding.archie.entity.TableStatus;
 import com.digitalflooding.archie.repository.TableRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,42 +20,64 @@ import java.util.Optional;
 @Service
 public class TableBrookerService { //table dispatcher
 
-    private final TableRepository repository;
-    private final ModelMapper modelMapper;
-
-    private List<TableRestaurant> tablesList;
+    private final TableRepository tableRepository;
+    //private List<TableRestaurant> tablesList;
 
     @Autowired
+    public TableBrookerService(TableRepository tableRepository) {
+        this.tableRepository = tableRepository;
+        //tablesList = tableRepository.findAll();
+    }
 
-    public TableBrookerService(TableRepository repository, ModelMapper modelMapper) {
-        this.repository = repository;
-        this.modelMapper = modelMapper;
-        tablesList = new ArrayList<>();
+    public TableRestaurant getFirstAvailablebyData(LocalDate date, LocalTime time, Integer seats){
+        try {
+            List<TableRestaurant> tableList = tableRepository.findByData(date, time, seats);
+            return tableList.get(0);
+        }   catch(Exception e){
+            log.error("No available tables found");
+            return null;
+        }
     }
 
     //CRUD OPERATIONS
 
-    public TableRestaurant addTable (TableRestaurantDto tableRestaurantDto){
-        TableRestaurant tableRestaurant = modelMapper.map(tableRestaurantDto, TableRestaurant.class);
-      if(repository.findById(tableRestaurantDto.getId()).isPresent()){
-          log.info(String.format("Table id: %s already exist, updating...", tableRestaurantDto.getId()));
-      }
-        return repository.save(tableRestaurant);
+    //aggiunta prenotazione, bisogna agganciare la prenotazione all'oggetto tavolo e cliente
+    public TableRestaurant addTable (TableRestaurant tableRestaurant){
+        if(tableRepository.findById(tableRestaurant.getId()).isPresent()){
+            log.info(String.format("Table id: %s already exist", tableRestaurant.getId()));
+            return null;
+        }
+        return tableRepository.save(tableRestaurant);
     }
 
-    public TableRestaurant updateTable (TableRestaurant tableRestaurant){
-        return repository.save(tableRestaurant);
+    public TableRestaurant updateTable(TableRestaurant tableInput, Reservation reservation){
+        Optional<TableRestaurant> tableOptional =  tableRepository.findById(tableInput.getId());
+        if(tableOptional.isPresent()){
+            TableRestaurant table = tableOptional.get();
+            if(reservation!=null){
+                LocalDateTime key = LocalDateTime.of(reservation.getIdReservation().getDate(), reservation.getIdReservation().getTime());
+                table.getReservations().put(key, reservation);
+            }
+            if(tableInput.getSeats()!=null){
+                table.setSeats(tableInput.getSeats());
+            }
+            tableRepository.save(table);
+            return table;
+        }   else{
+                log.error("Table do not exist");
+                return null;
+            }
     }
 
-    public void deleteTable(Long id){
-        repository.deleteById(id);
+    public void deleteTable(Integer id){
+        tableRepository.deleteById(id);
     }
 
     public List<TableRestaurant> getTables(){
-        return repository.findAll();
+        return tableRepository.findAll();
     }
 
-    public Optional<TableRestaurant> getTable(Long id){
-        return repository.findById(id);
+    public Optional<TableRestaurant> getTable(Integer id){
+        return tableRepository.findById(id);
     }
 }

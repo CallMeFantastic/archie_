@@ -20,16 +20,21 @@ public class TableRestaurant {
     @NotNull
     private Integer seats;
 
+    @NotNull
+    private TableStatus tableStatus;
+
     public TableRestaurant(Builder builder) {
         this.id = builder.id;
         this.reservations = builder.reservations;
         this.seats = builder.seats;
+        this.tableStatus = builder.tableStatus;
     }
 
     public static class Builder{
         private Integer id; //table number
         private Map<LocalDateTime, Reservation> reservations;
         private Integer seats;
+        private TableStatus tableStatus;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -43,6 +48,11 @@ public class TableRestaurant {
 
         public Builder setSeats(Integer seats) {
             this.seats = seats;
+            return this;
+        }
+
+        public Builder setTableStatus(TableStatus tableStatus){
+            this.tableStatus = tableStatus;
             return this;
         }
 

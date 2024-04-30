@@ -11,7 +11,6 @@ import java.util.Map;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
     private Long id;
 
     @NotNull
@@ -21,6 +20,7 @@ public class Customer {
     private String customerName;
 
     @NotNull
+    @Column(unique=true)
     private String contactNumber;
 
     private String email;
